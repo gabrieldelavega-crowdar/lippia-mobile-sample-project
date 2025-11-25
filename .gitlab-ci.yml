@@ -1,0 +1,43 @@
+image: tmaier/docker-compose:latest
+
+include:
+  - project: 'lippia/products/template-ci'
+    ref: master
+    file: 
+      - 'Publish.yml'
+ 
+stages:
+  - build
+  - Publish
+  - test
+  - deploy
+  
+Build-app:
+  stage: build
+  script:
+    - echo 'Building app'
+    - echo 'Uploading apk to browserstack'
+#    - curl -u "(credential in environment variables)" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@./sample_apk/lippia.apk"
+    
+Testing:
+  stage: test
+  variables:
+    DOCKER_HOST: tcp://localhost:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ''
+    DOCKER_BUILDKIT: 1
+    DOCKER_CLI_EXPERIMENTAL: enabled
+  services:
+    - name: docker:19.03.12-dind
+      alias: docker
+  script:
+    - docker-compose -f docker-compose.yml up --abort-on-container-exit --exit-code-from lippia
+  allow_failure: true
+#  artifacts:
+#    paths:
+#      - target/reports/
+
+Deploy:
+  stage: deploy
+  script: 
+    - echo 'deploying app in custom server'

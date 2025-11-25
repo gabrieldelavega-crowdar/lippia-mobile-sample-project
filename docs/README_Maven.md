@@ -103,8 +103,25 @@ This type of execution allows you to simulate a real device to run your tests on
     ```
     $ mvn clean test
     ```
+      
+  + Additionally, other options are available for running the tests, as outlined in the following table: <a id='table_mvn'>maven commands</a>
+   ```
+     * -D is used to define system properties or command-line properties, which Maven will utilize during the project's building and/or execution process.
+     * Using -P followed by the profile name allows Maven to apply the configurations associated with that specific profile during the project's build process.
+     * -Pparallel: indicates the profile that enables the opening of multiple execution threads.
+     * -PAndroid, -PIos: They indicate the profiles of the operating systems as their name describes.
+     
 
-- ## Running with a emulated device
+             |                                    Command                                                 |                    Description                       |
+             |--------------------------------------------------------------------------------------------|------------------------------------------------------|
+             | clean test -DforkCount=0                                                                   | In case you need to debug, for use in the IDE runner |
+             | mvn clean test -DforkCount=0  "-Dcrowdar.cucumber.filter=@Smoke"                           | Specifying a tag and including the debug option      |
+             | mvn clean test -PLocal -PAndroid                                                           | Multiple profiles enabled                            |
+             | mvn clean test -PLocal -PAndroid "-Dcrowdar.cucumber.filter='@Demo and @Smoke'"            | Multiple tags and profiles enabled                   |
+            
+   
+   ```
+- ## Running with an emulated device
   #### First step:
     - Open Android Studio
     - Click on Configure
@@ -148,4 +165,6 @@ This type of execution allows you to simulate a real device to run your tests on
     ```
     $ mvn clean test
     ```
-  _Please note that it's not necessary to have opened Android Studio_
+  In addition, what was mentioned above in the sixth step of running with a physical device applies here as well. [maven commands](#table_mvn)
+  
+- _Please note that it's not necessary to have opened Android Studio_
