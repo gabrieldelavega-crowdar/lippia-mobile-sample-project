@@ -101,4 +101,15 @@ public class ShopSteps {
     public void elUsuarioVerificaElMensajeFinalDeLaCompra() {
         ShopServices.verifyCheckoutComplete();
     }
+
+    @And("el usuario selecciona el boton +")
+    public void elUsuarioSeleccionaElBoton() {
+        ShopServices.selectAddProductButton();
+
+    }
+
+    @Then("el usuario verifica que el total de items corresponda al incremento")
+    public void elUsuarioVerificaQueElTotalDeItemsCorrespondaAlIncremento() {
+        ShopServices.verifyTotalItems();
+    }
 }

@@ -28,4 +28,5 @@ public class ShopConstants {
     public static final String BUTTON_PLACE_ORDER = "id:com.saucelabs.mydemoapp.android:id/paymentBtn";
     public static final String TITTLE_CHECKOUT_COMPLETE = "id:com.saucelabs.mydemoapp.android:id/completeTV";
     public static final String TITTLE_FINAL_PAGE = "id:com.saucelabs.mydemoapp.android:id/checkoutTitleTV";
+    public static final String BUTTON_ADD_PRODUCT = "id:com.saucelabs.mydemoapp.android:id/plusIV";
 }

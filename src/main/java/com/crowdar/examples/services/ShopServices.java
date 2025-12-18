@@ -11,6 +11,10 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 public class ShopServices {
+
+    private String prevItems = "0";
+    private String finalItems = "0";
+
     public static void verifyCatalogPage() {
         MobileActionManager.waitVisibility(ShopConstants.TITTLE_PAGE);
         String ActualTittle = MobileActionManager.getText(ShopConstants.TITTLE_PAGE);
@@ -147,5 +151,13 @@ public class ShopServices {
         MobileActionManager.waitVisibility(ShopConstants.TITTLE_CHECKOUT_COMPLETE);
         String ActualTittle = MobileActionManager.getText(ShopConstants.TITTLE_CHECKOUT_COMPLETE);
         Assert.assertEquals(ActualTittle, "Checkout Complete");
+    }
+
+    public static void selectAddProductButton() {
+        CommonServices.scrollTo(ShopConstants.BUTTON_ADD_PRODUCT);
+        MobileActionManager.click(ShopConstants.BUTTON_ADD_PRODUCT);
+    }
+
+    public static void verifyTotalItems() {
     }
 }
