@@ -1,12 +1,7 @@
 package com.crowdar.examples.services;
 
 import com.crowdar.core.actions.MobileActionManager;
-import com.crowdar.core.actions.WebActionManager;
-import com.crowdar.driver.DriverManager;
 import com.crowdar.examples.constants.ShopConstants;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -47,8 +42,9 @@ public class ShopServices {
         String ActualTittle = MobileActionManager.getText(ShopConstants.TITTLE_PAGE);
         Assert.assertEquals(ActualTittle, "My Cart");
 
-        MobileActionManager.waitVisibility(ShopConstants.TITTLE_PRODUCT_CART);
-        String ActualProductTittle = MobileActionManager.getText(ShopConstants.TITTLE_PRODUCT_CART);
+        CommonServices.scrollTo("text:" + producto);
+        MobileActionManager.waitVisibility(ShopConstants.TITTLE_PRODUCT_CART, producto);
+        String ActualProductTittle = MobileActionManager.getText(ShopConstants.TITTLE_PRODUCT_CART, producto);
         Assert.assertEquals(ActualProductTittle, producto);
     }
 
@@ -118,31 +114,6 @@ public class ShopServices {
         MobileActionManager.waitVisibility(ShopConstants.BUTTON_REVIEW_ORDER).click();
     }
 
-    public static void verifyProductOrder(String producto) {
-        MobileActionManager.waitVisibility(ShopConstants.TITTLE_FINAL_PAGE);
-        String ActualTittle = MobileActionManager.getText(ShopConstants.TITTLE_FINAL_PAGE);
-        Assert.assertEquals(ActualTittle, "Checkout");
-
-        MobileActionManager.waitVisibility(ShopConstants.TITTLE_PRODUCT_CART);
-        String ActualProductTittle = MobileActionManager.getText(ShopConstants.TITTLE_PRODUCT_CART);
-        Assert.assertEquals(ActualProductTittle, producto);
-
-        CommonServices.scrollTo("text:" + "Estimated to arrive within 3 weeks.");
-
-        String ActualName = MobileActionManager.getText(ShopConstants.FINAL_ORDER_NAME);
-        String ActualAddress = MobileActionManager.getText(ShopConstants.FINAL_ORDER_ADDRESS);
-        String ActualCardNumber = MobileActionManager.getText(ShopConstants.FINAL_ORDER_CARD_NUMBER);
-
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertEquals(ActualName,"JUAN EJEMPLO");
-        softAssert.assertEquals(ActualAddress,"Avenida Siempreviva 742");
-        softAssert.assertEquals(ActualCardNumber,"1234123412341234");
-        softAssert.assertAll();
-
-
-    }
-
     public static void selectPlaceOrderButton() {
         MobileActionManager.waitVisibility(ShopConstants.BUTTON_PLACE_ORDER).click();
     }
@@ -158,6 +129,72 @@ public class ShopServices {
         MobileActionManager.click(ShopConstants.BUTTON_ADD_PRODUCT);
     }
 
+    public static void selectCatalogButton() {
+        MobileActionManager.click(ShopConstants.BUTTON_CATALOG);
+
+    }
+
+    public static void selectOptionButton() {
+        MobileActionManager.waitVisibility(ShopConstants.BUTTON_OPTIONS).click();
+
+    }
+
     public static void verifyTotalItems() {
+        String productQuantity = MobileActionManager.getText(ShopConstants.QUANTITY_BY_PRODUCTS_IN_CART);
+
+        String rawTotalText = MobileActionManager.getText(ShopConstants.QUANTITY_IN_CART);
+        String totalProductsQuantity = rawTotalText.replaceAll("\\D+", "");
+
+        Assert.assertEquals(productQuantity, totalProductsQuantity);
+    }
+
+
+    public static void verifyAddressCompleted() {
+        SoftAssert softAssert = new SoftAssert();
+
+        String actualName = MobileActionManager.getText(ShopConstants.TEXTBOX_CHECKOUT_NAME);
+        softAssert.assertEquals(actualName, "JUAN EJEMPLO", "El campo Nombre no coincide.");
+
+        String actualAddress = MobileActionManager.getText(ShopConstants.TEXTBOX_CHECKOUT_ADDRESS);
+        softAssert.assertEquals(actualAddress, "Avenida Siempreviva 742", "El campo Dirección no coincide.");
+
+        String actualCity = MobileActionManager.getText(ShopConstants.TEXTBOX_CHECKOUT_CITY);
+        softAssert.assertEquals(actualCity, "MENDOZA", "El campo Ciudad no coincide.");
+
+        String actualZip = MobileActionManager.getText(ShopConstants.TEXTBOX_CHECKOUT_ZIP_CODE);
+        softAssert.assertEquals(actualZip, "5500", "El campo Código Postal no coincide.");
+
+        String actualCountry = MobileActionManager.getText(ShopConstants.TEXTBOX_CHECKOUT_COUNTRY);
+        softAssert.assertEquals(actualCountry, "ARGENTINA", "El campo País no coincide.");
+
+        softAssert.assertAll();
+    }
+
+    public static void verifyPaymentCompleted() {
+        SoftAssert softAssert = new SoftAssert();
+
+        String actualName = MobileActionManager.getText(ShopConstants.TEXTBOX_CHECKOUT_PAYMENT_NAME);
+        softAssert.assertEquals(actualName, "JUAN EJEMPLO", "El Nombre del titular no coincide.");
+
+        String actualCard = MobileActionManager.getText(ShopConstants.TEXTBOX_CHECKOUT_PAYMENT_CARD_NUMBER);
+        softAssert.assertEquals(actualCard, "1234123412341234", "El Número de tarjeta no coincide.");
+
+        String actualExp = MobileActionManager.getText(ShopConstants.TEXTBOX_CHECKOUT_PAYMENT_EXPIRATION_DATE);
+        softAssert.assertEquals(actualExp, "05/29", "La Fecha de expiración no coincide.");
+
+        String actualCvv = MobileActionManager.getText(ShopConstants.TEXTBOX_CHECKOUT_PAYMENT_SECURITY_CODE);
+        softAssert.assertEquals(actualCvv, "123", "El CVV no coincide.");
+
+        softAssert.assertAll();
+    }
+
+    public static void selectStarsButton(String stars) {
+        MobileActionManager.waitVisibility(ShopConstants.BUTTON_STAR_CALIFICATION, stars).click();
+    }
+
+    public static void verifyMessageReview(String text) {
+        MobileActionManager.waitVisibility(ShopConstants.MESSAGE_REVIEW);
+        String actualMessage = MobileActionManager.getText(ShopConstants.MESSAGE_REVIEW);
+        Assert.assertEquals(text, actualMessage);
     }
 }

@@ -5,7 +5,7 @@ public class ShopConstants {
     public static final String SELECTED_PRODUCT = "xpath://android.widget.TextView[@text='%s']/preceding-sibling::android.widget.ImageView";
     public static final String BUTTON_ADD_TO_CART = "id:com.saucelabs.mydemoapp.android:id/cartBt";
     public static final String BUTTON_CART = "id:com.saucelabs.mydemoapp.android:id/cartIV";
-    public static final String TITTLE_PRODUCT_CART = "id:com.saucelabs.mydemoapp.android:id/titleTV";
+    public static final String TITTLE_PRODUCT_CART = "XPATH://android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/titleTV\" and @text='%s']";
     public static final String BUTTON_REMOVE_ITEM = "id:com.saucelabs.mydemoapp.android:id/removeBt";
     public static final String TITTLE_NO_PRODUCT_CART = "id:com.saucelabs.mydemoapp.android:id/noItemTitleTV";
     public static final String BUTTON_PROCEED_TO_CHECKOUT = "id:com.saucelabs.mydemoapp.android:id/cartBt";
@@ -29,4 +29,10 @@ public class ShopConstants {
     public static final String TITTLE_CHECKOUT_COMPLETE = "id:com.saucelabs.mydemoapp.android:id/completeTV";
     public static final String TITTLE_FINAL_PAGE = "id:com.saucelabs.mydemoapp.android:id/checkoutTitleTV";
     public static final String BUTTON_ADD_PRODUCT = "id:com.saucelabs.mydemoapp.android:id/plusIV";
+    public static final String BUTTON_CATALOG = "XPATH://android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/itemTV\" and @text=\"Catalog\"]";
+    public static final String BUTTON_OPTIONS = "id:com.saucelabs.mydemoapp.android:id/menuIV";
+    public static final String QUANTITY_BY_PRODUCTS_IN_CART = "id:com.saucelabs.mydemoapp.android:id/noTV";
+    public static final String QUANTITY_IN_CART = "id:com.saucelabs.mydemoapp.android:id/itemsTV";
+    public static final String BUTTON_STAR_CALIFICATION = "id:com.saucelabs.mydemoapp.android:id/start%sIV";
+    public static final String MESSAGE_REVIEW = "id:com.saucelabs.mydemoapp.android:id/sortTV";
 }

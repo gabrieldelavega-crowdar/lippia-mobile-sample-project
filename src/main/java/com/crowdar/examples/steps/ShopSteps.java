@@ -85,12 +85,6 @@ public class ShopSteps {
         ShopServices.selectReviewOrderButton();
     }
 
-    @And("el usuario verifica que su producto (.*) y los datos de compra sean correctos$")
-    public void elUsuarioVerificaQueSuProductoYLosDatosDeCompraSeanCorrectos(String producto) {
-        ShopServices.verifyProductOrder(producto);
-
-    }
-
     @And("el usuario selecciona el boton Place Order")
     public void elUsuarioSeleccionaElBotonPlaceOrder() {
         ShopServices.selectPlaceOrderButton();
@@ -108,8 +102,43 @@ public class ShopSteps {
 
     }
 
-    @Then("el usuario verifica que el total de items corresponda al incremento")
-    public void elUsuarioVerificaQueElTotalDeItemsCorrespondaAlIncremento() {
+
+    @And("el usuario selecicona el boton Opciones")
+    public void elUsuarioSeleciconaElBotonOpciones() {
+        ShopServices.selectOptionButton();
+
+    }
+
+    @And("el usuario selecicona el boton Catalogo")
+    public void elUsuarioSeleciconaElBotonVolverAlCatalogo() {
+        ShopServices.selectCatalogButton();
+    }
+
+
+    @Then("el usuario verifica que el nuevo total de items sea correcto")
+    public void elUsuarioVerificaQueElNuevoTotalDeItemsSeaCorrecto() {
         ShopServices.verifyTotalItems();
+
+    }
+
+    @Then("el usuario verifica que la dirección del envío este completada")
+    public void elUsuarioVerificaQueLaDireccionDelEnvioEsteCompletada() {
+        ShopServices.verifyAddressCompleted();
+    }
+
+    @Then("el usuario verifica que el metodo de pago este completado")
+    public void elUsuarioVerificaQueElMetodoDePagoEsteCompletado() {
+        ShopServices.verifyPaymentCompleted();
+
+    }
+
+    @Then("el usuario califica el producto con (.*) estrellas$")
+    public void elUsuarioCalificaElProductoConEstrellas(String stars) {
+        ShopServices.selectStarsButton(stars);
+    }
+
+    @And("el usuario verifica el mensaje (.*) por calificar$")
+    public void elUsuarioVerificaElMensajePorCalificar(String text) {
+        ShopServices.verifyMessageReview(text);
     }
 }
