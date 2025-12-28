@@ -36,7 +36,7 @@ Feature: Shop
       | Sauce Labs Backpack |  |
 
 
-  @AgregarDirecciónEnvío @Smoke @Consigna3
+  @AgregarDirecciónEnvío @Consigna3
   Scenario Outline: Agregar una nueva dirección de envío
     Given el usuario se encuentra en la pantalla de catalogo
     When el usuario selecciona el producto <producto>
@@ -55,7 +55,7 @@ Feature: Shop
       | producto            |
       | Sauce Labs Backpack |
 
-  @AgregarMetodoPago @Smoke @Consigna4
+  @AgregarMetodoPago @Consigna4
   Scenario Outline: Agregar un método de pago
     Given el usuario se encuentra en la pantalla de catalogo
     When el usuario selecciona el producto <producto>
